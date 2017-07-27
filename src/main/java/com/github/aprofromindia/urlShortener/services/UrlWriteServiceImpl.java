@@ -6,9 +6,9 @@ import com.github.aprofromindia.urlShortener.errors.UrlException;
 import com.github.aprofromindia.urlShortener.repositories.UrlRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -25,10 +25,12 @@ public class UrlWriteServiceImpl implements UrlWriteService {
 
     @Override
     public void deleteUrl(String urlId) {
-        repository.deleteByShortUrl(urlId);
+        if (repository.countByShortUrl(urlId) > 1) {
+            repository.deleteByShortUrl(urlId);
+        }
     }
 
-    private String getHash(@NotNull String urlAddress){
-        return UUID.fromString(urlAddress).toString();
+    private String getHash(@NotNull String urlAddress) {
+        return DigestUtils.md5DigestAsHex(urlAddress.getBytes());
     }
 }

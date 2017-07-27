@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 
 @RequestMapping("urls")
@@ -19,18 +20,18 @@ public class UrlController {
     private final UrlWriteService writeService;
 
     @GetMapping("/{urlId}")
-    String getUrl(@PathVariable @NotNull String urlId) {
-        return "redirect:" + readService.getUrl(urlId);
+    HttpEntity<String> getUrl(@PathVariable @NotNull String urlId) {
+        return new ResponseEntity<>("redirect:" + readService.getUrl(urlId), HttpStatus.FOUND);
     }
 
     @PostMapping
-    HttpEntity<String> postUrl(@RequestBody @NotNull String address) {
+    HttpEntity<String> postUrl(HttpServletRequest request, @RequestBody @NotNull String address) {
         final String urlHash = writeService.createShortUrl(address);
-        return new ResponseEntity<>(urlHash, HttpStatus.CREATED);
+        return new ResponseEntity<>(String.format("%s/%s", request.getLocalName(), urlHash), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{urlId}")
-    HttpEntity<String> deleteUrl(@PathVariable @NotNull String urlId){
+    HttpEntity<String> deleteUrl(@PathVariable @NotNull String urlId) {
         writeService.deleteUrl(urlId);
         return new ResponseEntity<>("resource deleted", HttpStatus.NO_CONTENT);
     }

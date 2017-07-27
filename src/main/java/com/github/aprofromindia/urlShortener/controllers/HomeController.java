@@ -15,12 +15,12 @@ public class HomeController {
     @GetMapping(value = "/", produces = MediaTypes.HAL_JSON_VALUE)
     Resource<String> getIndex() {
         return new Resource<>("Welcome to the URL shortener service",
-                linkTo(methodOn(UrlController.class).getUrl(""))
+                linkTo(methodOn(UrlController.class).getUrl("urlID"))
                         .withRel(AppConstants.REL_GET_SHORT_URL),
-                linkTo(methodOn(UrlController.class).postUrl(""))
+                linkTo(methodOn(UrlController.class).postUrl(null, ""))
                         .withRel(AppConstants.REL_CREATE_SHORT_URL),
-                linkTo(methodOn(UrlController.class).postUrl(""))
-                        .withRel(AppConstants.REL_CREATE_SHORT_URL),
+                linkTo(methodOn(UrlController.class).deleteUrl("urlID"))
+                        .withRel(AppConstants.REL_DEL_SHORT_URL),
                 linkTo(methodOn(HomeController.class).getIndex())
                         .withSelfRel());
     }

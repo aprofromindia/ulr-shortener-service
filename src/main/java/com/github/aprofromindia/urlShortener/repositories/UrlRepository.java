@@ -9,4 +9,6 @@ public interface UrlRepository extends Repository<Url, Long> {
     Url findByAddress(String address);
 
     Url deleteByShortUrl(String shortUrl);
+
+    long countByShortUrl(String shortUrl);
 }
