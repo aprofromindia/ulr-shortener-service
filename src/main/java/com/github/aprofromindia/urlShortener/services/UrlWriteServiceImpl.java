@@ -5,6 +5,7 @@ import com.github.aprofromindia.urlShortener.errors.Error;
 import com.github.aprofromindia.urlShortener.errors.UrlException;
 import com.github.aprofromindia.urlShortener.repositories.UrlRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -23,11 +24,11 @@ public class UrlWriteServiceImpl implements UrlWriteService {
         } else throw new UrlException(Error.REQ_BODY_ERROR, "failed to create url has");
     }
 
+
+    @CacheEvict("urlId")
     @Override
-    public void deleteUrl(String urlId) {
-        if (repository.countByShortUrl(urlId) > 0) {
-            repository.deleteByShortUrl(urlId);
-        }
+    public void deleteShortUrl(String shortUrl) {
+        repository.deleteByShortUrl(shortUrl);
     }
 
     private String getHash(@NotNull String urlAddress) {

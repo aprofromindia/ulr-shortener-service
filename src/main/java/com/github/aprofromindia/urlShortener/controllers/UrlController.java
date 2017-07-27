@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 
 @RequestMapping("urls")
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class UrlController {
 
@@ -33,7 +33,7 @@ public class UrlController {
 
     @DeleteMapping("/{urlId}")
     HttpEntity<String> deleteUrl(@PathVariable @NotNull String urlId) {
-        writeService.deleteUrl(urlId);
+        writeService.deleteShortUrl(urlId);
         return new ResponseEntity<>("resource deleted", HttpStatus.NO_CONTENT);
     }
 }

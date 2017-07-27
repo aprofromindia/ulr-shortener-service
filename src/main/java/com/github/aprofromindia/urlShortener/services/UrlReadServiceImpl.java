@@ -4,7 +4,7 @@ import com.github.aprofromindia.urlShortener.errors.Error;
 import com.github.aprofromindia.urlShortener.errors.UrlException;
 import com.github.aprofromindia.urlShortener.repositories.UrlRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
@@ -15,7 +15,7 @@ public class UrlReadServiceImpl implements UrlReadService {
 
     private final UrlRepository repository;
 
-    @CachePut()
+    @Cacheable("urlId")
     @Override
     public String getUrl(@NotNull String urlId) {
         if (repository.countByShortUrl(urlId) > 0) {
