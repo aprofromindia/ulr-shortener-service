@@ -1,9 +1,14 @@
 package com.github.aprofromindia.urlShortener.services;
 
 import com.github.aprofromindia.urlShortener.entities.Url;
+import com.github.aprofromindia.urlShortener.errors.Error;
+import com.github.aprofromindia.urlShortener.errors.UrlException;
 import com.github.aprofromindia.urlShortener.repositories.UrlRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -11,11 +16,19 @@ public class UrlWriteServiceImpl implements UrlWriteService {
     private final UrlRepository repository;
 
     @Override
-    public String generateShortUrl(String address) {
-        String shortUrl = "";
-        Url url = new Url(address, shortUrl);
+    public String createShortUrl(String address) {
+        Url url = new Url(address, getHash(address));
         if ((url = repository.save(url)) != null) {
             return url.getShortUrl();
-        } else return "";
+        } else throw new UrlException(Error.REQ_BODY_ERROR, "failed to create url has");
+    }
+
+    @Override
+    public void deleteUrl(String urlId) {
+        repository.deleteByShortUrl(urlId);
+    }
+
+    private String getHash(@NotNull String urlAddress){
+        return UUID.fromString(urlAddress).toString();
     }
 }

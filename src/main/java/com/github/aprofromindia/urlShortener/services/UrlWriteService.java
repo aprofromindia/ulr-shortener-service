@@ -1,5 +1,7 @@
 package com.github.aprofromindia.urlShortener.services;
 
 public interface UrlWriteService {
-    String generateShortUrl(String address);
+    String createShortUrl(String address);
+
+    void deleteUrl(String urlId);
 }

@@ -7,4 +7,6 @@ public interface UrlRepository extends Repository<Url, Long> {
     Url save(Url url);
 
     Url findByAddress(String address);
+
+    Url deleteByShortUrl(String shortUrl);
 }
