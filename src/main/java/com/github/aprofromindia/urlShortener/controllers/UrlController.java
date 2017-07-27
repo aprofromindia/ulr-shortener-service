@@ -6,13 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 
 @RequestMapping("urls")
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class UrlController {
 
@@ -20,8 +21,8 @@ public class UrlController {
     private final UrlWriteService writeService;
 
     @GetMapping("/{urlId}")
-    HttpEntity<String> getUrl(@PathVariable @NotNull String urlId) {
-        return new ResponseEntity<>("redirect:" + readService.getUrl(urlId), HttpStatus.FOUND);
+    String getUrl(@PathVariable @NotNull String urlId) {
+        return "redirect:" + readService.getUrl(urlId);
     }
 
     @PostMapping
