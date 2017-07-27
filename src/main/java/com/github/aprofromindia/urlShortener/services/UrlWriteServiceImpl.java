@@ -21,7 +21,7 @@ public class UrlWriteServiceImpl implements UrlWriteService {
         Url url = new Url(address, getHash(address));
         if ((url = repository.save(url)) != null) {
             return url.getShortUrl();
-        } else throw new UrlException(Error.REQ_BODY_ERROR, "failed to create url has");
+        } else throw new UrlException(Error.REQ_BODY_ERROR, "Failed to persist url.");
     }
 
 
