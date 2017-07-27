@@ -1,9 +1,11 @@
 package com.github.aprofromindia.urlShortener.controllers;
 
+import com.github.aprofromindia.urlShortener.entities.Url;
 import com.github.aprofromindia.urlShortener.services.UrlReadService;
 import com.github.aprofromindia.urlShortener.services.UrlWriteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import javax.validation.constraints.NotNull;
 @RequestMapping(UrlController.URLS_PATH)
 @RestController
 @RequiredArgsConstructor
+@ExposesResourceFor(Url.class)
 @Slf4j
 public class UrlController {
 
