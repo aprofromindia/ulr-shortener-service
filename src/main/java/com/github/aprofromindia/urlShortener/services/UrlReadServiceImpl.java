@@ -1,5 +1,7 @@
 package com.github.aprofromindia.urlShortener.services;
 
+import com.github.aprofromindia.urlShortener.errors.Error;
+import com.github.aprofromindia.urlShortener.errors.UrlException;
 import com.github.aprofromindia.urlShortener.repositories.UrlRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ public class UrlReadServiceImpl implements UrlReadService {
 
     @Override
     public String getUrl(@NotNull String urlId) {
-        return repository.findByAddress(urlId).getShortUrl();
+        if (repository.countByShortUrl(urlId) > 0) {
+            return repository.findByShortUrl(urlId).getAddress();
+        } else throw new UrlException(Error.GENERIC_ERROR, "no matching url");
     }
 }

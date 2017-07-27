@@ -27,7 +27,7 @@ public class UrlController {
     @PostMapping
     HttpEntity<String> postUrl(HttpServletRequest request, @RequestBody @NotNull String address) {
         final String urlHash = writeService.createShortUrl(address);
-        return new ResponseEntity<>(String.format("%s/%s", request.getLocalName(), urlHash), HttpStatus.CREATED);
+        return new ResponseEntity<>(String.format("%s/urls/%s", request.getLocalName(), urlHash), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{urlId}")

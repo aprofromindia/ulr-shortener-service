@@ -25,7 +25,7 @@ public class UrlWriteServiceImpl implements UrlWriteService {
 
     @Override
     public void deleteUrl(String urlId) {
-        if (repository.countByShortUrl(urlId) > 1) {
+        if (repository.countByShortUrl(urlId) > 0) {
             repository.deleteByShortUrl(urlId);
         }
     }

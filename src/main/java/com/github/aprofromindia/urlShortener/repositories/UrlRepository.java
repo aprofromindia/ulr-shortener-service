@@ -6,7 +6,7 @@ import org.springframework.data.repository.Repository;
 public interface UrlRepository extends Repository<Url, Long> {
     Url save(Url url);
 
-    Url findByAddress(String address);
+    Url findByShortUrl(String shortUrl);
 
     Url deleteByShortUrl(String shortUrl);
 
