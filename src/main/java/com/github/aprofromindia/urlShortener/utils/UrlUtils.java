@@ -1,6 +1,6 @@
 package com.github.aprofromindia.urlShortener.utils;
 
-    /*
+/*
  * UrlUtils (https://github.com/delight-im/ShortURL)
  * Copyright (c) delight.im (https://www.delight.im/)
  * Licensed under the MIT License (https://opensource.org/licenses/MIT)
@@ -8,17 +8,15 @@ package com.github.aprofromindia.urlShortener.utils;
 
 /**
  * UrlUtils: Bijective conversion between natural numbers (IDs) and short strings
- * <p>
- * UrlUtils.encode() takes an ID and turns it into a short string
- * UrlUtils.decode() takes a short string and turns it into an ID
- * <p>
- * Features:
- * + large alphabet (51 chars) and thus very short resulting strings
- * + proof against offensive words (removed 'a', 'e', 'i', 'o' and 'u')
- * + unambiguous (removed 'I', 'l', '1', 'O' and '0')
- * <p>
- * Example output:
- * 123456789 <=> pgK8p
+ *
+ * <p>UrlUtils.encode() takes an ID and turns it into a short string UrlUtils.decode() takes a short
+ * string and turns it into an ID
+ *
+ * <p>Features: + large alphabet (51 chars) and thus very short resulting strings + proof against
+ * offensive words (removed 'a', 'e', 'i', 'o' and 'u') + unambiguous (removed 'I', 'l', '1', 'O'
+ * and '0')
+ *
+ * <p>Example output: 123456789 <=> pgK8p
  */
 public class UrlUtils {
 
@@ -41,5 +39,4 @@ public class UrlUtils {
         }
         return num;
     }
-
 }

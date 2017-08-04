@@ -9,6 +9,7 @@ import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,13 +28,15 @@ public class UrlController {
 
     @GetMapping("/{urlId}")
     String getUrl(@PathVariable @NotNull String urlId) {
+        Assert.isInstanceOf(String.class, urlId);
         return "redirect:" + readService.getUrl(urlId);
     }
 
     @PostMapping
     HttpEntity<String> postUrl(HttpServletRequest request, @RequestBody @NotNull String address) {
         final String urlHash = writeService.createShortUrl(address);
-        return new ResponseEntity<>(String.format("%s/urls/%s", request.getLocalName(), urlHash), HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                String.format("%s/urls/%s", request.getLocalName(), urlHash), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{urlId}")

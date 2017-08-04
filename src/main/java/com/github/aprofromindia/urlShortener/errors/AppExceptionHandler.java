@@ -17,37 +17,43 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UrlException.class)
-    ResponseEntity<?> handleTransactonException(final UrlException ex,
-                                                final WebRequest request) {
+    ResponseEntity<?> handleTransactionException(final UrlException ex, final WebRequest request) {
         log.error(ex.getMessage());
-        return handleExceptionInternal(ex, new ApiError(Error.REQ_BODY_ERROR, ex),
-                new HttpHeaders(), HttpStatus.UNPROCESSABLE_ENTITY, request);
+        return handleExceptionInternal(
+                ex,
+                new ApiError(Error.REQ_BODY_ERROR, ex),
+                new HttpHeaders(),
+                HttpStatus.UNPROCESSABLE_ENTITY,
+                request);
     }
 
     @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-                                                                  HttpHeaders headers,
-                                                                  HttpStatus status,
-                                                                  WebRequest request) {
-        return handleExceptionInternal(ex, new ApiError(Error.MALFORMED_REQUEST, ex),
-                headers, status, request);
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+            HttpMessageNotReadableException ex,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
+        return handleExceptionInternal(
+                ex, new ApiError(Error.MALFORMED_REQUEST, ex), headers, status, request);
     }
 
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  HttpHeaders headers,
-                                                                  HttpStatus status,
-                                                                  WebRequest request) {
-        return handleExceptionInternal(ex, new ApiError(Error.MALFORMED_REQUEST, ex),
-                headers, status, request);
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            MethodArgumentNotValidException ex,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
+        return handleExceptionInternal(
+                ex, new ApiError(Error.MALFORMED_REQUEST, ex), headers, status, request);
     }
 
     @Override
-    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
-                                                                         HttpHeaders headers,
-                                                                         HttpStatus status,
-                                                                         WebRequest request) {
-        return handleExceptionInternal(ex, new ApiError(Error.MALFORMED_REQUEST, ex),
-                headers, status, request);
+    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
+            HttpRequestMethodNotSupportedException ex,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
+        return handleExceptionInternal(
+                ex, new ApiError(Error.MALFORMED_REQUEST, ex), headers, status, request);
     }
 }

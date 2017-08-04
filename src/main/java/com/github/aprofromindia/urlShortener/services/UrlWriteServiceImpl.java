@@ -25,7 +25,6 @@ public class UrlWriteServiceImpl implements UrlWriteService {
         } else throw new UrlException(Error.REQ_BODY_ERROR, "Failed to persist url.");
     }
 
-
     @CacheEvict("urlId")
     @Override
     public void deleteShortUrl(String shortUrl) {

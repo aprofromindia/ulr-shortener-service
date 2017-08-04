@@ -16,7 +16,8 @@ public class HomeController {
 
     @GetMapping(value = "/", produces = MediaTypes.HAL_JSON_VALUE)
     Resource<String> getIndex() {
-        return new Resource<>("Welcome to the URL shortener service",
+        return new Resource<>(
+                "Welcome to the URL shortener service",
                 entityLinks.linkFor(Url.class).withRel("urls"));
     }
 }
