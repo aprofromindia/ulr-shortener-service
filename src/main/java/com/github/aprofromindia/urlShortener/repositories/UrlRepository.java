@@ -6,9 +6,9 @@ import org.springframework.data.repository.Repository;
 public interface UrlRepository extends Repository<Url, Long> {
     Url save(Url url);
 
-    Url findByShortUrl(String shortUrl);
+    Url findById(long id);
 
-    Url deleteByShortUrl(String shortUrl);
+    Url deleteById(long id);
 
-    long countByShortUrl(String shortUrl);
+    long countById(long id);
 }

@@ -5,15 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.PersistenceConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 @NoArgsConstructor(onConstructor = @__(@PersistenceConstructor))
 @EqualsAndHashCode(of = "id")
 @Getter
-@Table(indexes = {
-        @Index(unique = true, columnList = "short_url", name = "url-shortUrl")
-})
 public class Url {
     @Id
     @GeneratedValue

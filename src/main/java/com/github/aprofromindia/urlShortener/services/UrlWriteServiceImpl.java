@@ -4,6 +4,7 @@ import com.github.aprofromindia.urlShortener.entities.Url;
 import com.github.aprofromindia.urlShortener.errors.Error;
 import com.github.aprofromindia.urlShortener.errors.UrlException;
 import com.github.aprofromindia.urlShortener.repositories.UrlRepository;
+import com.github.aprofromindia.urlShortener.utils.UrlUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class UrlWriteServiceImpl implements UrlWriteService {
     @CacheEvict("urlId")
     @Override
     public void deleteShortUrl(String shortUrl) {
-        repository.deleteByShortUrl(shortUrl);
+        repository.deleteById(UrlUtils.decode(shortUrl));
     }
 
     private String getHash(@NotNull String urlAddress) {
